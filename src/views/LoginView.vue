@@ -2,10 +2,12 @@
   <div>
     <h1>Hello World</h1>
     <h1>{{ name }}</h1>
+    <TestProps :name="name" />
+    <!-- send value to TestProps.vue -->
     <v-btn color="success" @click="callAlert()">CallAlert</v-btn>
     <v-btn color="success" @click="show = !show">switch</v-btn>
-    <div>
-      <CardImg v-if="show"></CardImg>
+    <div v-if="show">
+      <CardImg />
     </div>
     <!-- <h1 v-for="(item, index) in items" :key="index">
         {{ item.message }}
@@ -41,9 +43,12 @@
 
 <script>
 import CardImg from "../components/CardImg.vue";
+import TestProps from "../components/TestProps.vue";
+
 export default {
   components: {
     CardImg,
+    TestProps,
   },
   data() {
     return {
