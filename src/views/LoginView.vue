@@ -17,13 +17,15 @@
             <v-img :src="item.imglink"></v-img>
             <v-card-title primary-title> {{ item.message }} </v-card-title>
             <v-card-actions>
-              <v-btn color="success" @click="callAlertparams(item.message)">alert</v-btn>
+              <v-btn color="success" @click="callAlertparams(item.message)"
+                >alert</v-btn
+              >
             </v-card-actions>
           </v-card>
         </div>
       </v-col>
       <v-col cols="12">
-        <h1>{{ value1 }}</h1> 
+        <h1>{{ value1 }}</h1>
         <v-text-field
           name="value1"
           label="กรอกรายละเอียด"
@@ -45,33 +47,39 @@ export default {
   },
   data() {
     return {
-      value1:'',
+      value1: "",
       name: "Jurin",
       show: false,
       items: [
         {
           message: "Foo",
-          imglink: "https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg",
+          imglink:
+            "https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg",
         },
         {
           message: "Bar",
-          imglink: "https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg",
+          imglink:
+            "https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg",
         },
         {
           message: "Foo",
-          imglink: "https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg",
+          imglink:
+            "https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg",
         },
         {
           message: "Bar",
-          imglink: "https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg",
+          imglink:
+            "https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg",
         },
         {
           message: "Foo",
-          imglink: "https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg",
+          imglink:
+            "https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg",
         },
         {
           message: "Bar",
-          imglink: "https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg",
+          imglink:
+            "https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg",
         },
       ],
     };
@@ -85,11 +93,13 @@ export default {
     },
     setLocalStorage() {
       localStorage.setItem("User", this.value1);
+      this.$cookies.set("User", this.value1, "60s");
     },
     removeLocalStorage() {
       localStorage.removeItem("User");
+      this.$cookies.remove("User");
     },
-  }
+  },
 };
 </script>
 

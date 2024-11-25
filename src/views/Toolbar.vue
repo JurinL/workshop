@@ -32,7 +32,7 @@
         target="_blank"
         text
       >
-        <span class="mr-2">{{User}}</span>
+        <span class="mr-2">{{User}} {{ User2 }}</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
     </v-app-bar>
@@ -47,11 +47,13 @@
 export default {
   data() {
     return {
-      User: ''
+      User: '',
+      User2: '',
     }
   },
   created() {
     this.User = localStorage.getItem('User')
+    this.User2 = this.$cookies.get("User")
   },
 }
 </script>
