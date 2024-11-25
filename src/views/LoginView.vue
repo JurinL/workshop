@@ -30,6 +30,8 @@
           id="value1"
           v-model="value1"
         ></v-text-field>
+        <v-btn color="success" @click="setLocalStorage()">Set</v-btn>
+        <v-btn color="success" @click="removeLocalStorage()">Remove</v-btn>
       </v-col>
     </v-row>
   </div>
@@ -49,33 +51,27 @@ export default {
       items: [
         {
           message: "Foo",
-          imglink:
-            "https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg",
+          imglink: "https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg",
         },
         {
           message: "Bar",
-          imglink:
-            "https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg",
+          imglink: "https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg",
         },
         {
           message: "Foo",
-          imglink:
-            "https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg",
+          imglink: "https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg",
         },
         {
           message: "Bar",
-          imglink:
-            "https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg",
+          imglink: "https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg",
         },
         {
           message: "Foo",
-          imglink:
-            "https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg",
+          imglink: "https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg",
         },
         {
           message: "Bar",
-          imglink:
-            "https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg",
+          imglink: "https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg",
         },
       ],
     };
@@ -86,6 +82,12 @@ export default {
     },
     callAlertparams(item) {
       alert(item);
+    },
+    setLocalStorage() {
+      localStorage.setItem("User", this.value1);
+    },
+    removeLocalStorage() {
+      localStorage.removeItem("User");
     },
   }
 };
