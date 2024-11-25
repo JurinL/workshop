@@ -1,34 +1,73 @@
 <template>
-  <div class="container">
+  <div class="Profile">
     <h1>My Profile</h1>
-    <v-card class="profilecard" elevation="5">
-      <v-img src="../assets/profile.jpg"></v-img>
-      <v-card-title>Jurin Laiyakosit</v-card-title>
-      <v-card-subtitle>มหาวิทยาลัยสงขลานครินทร์ คณะวิศวกรรมศาสตร์ สาขาวิศวกรรมคอมพิวเตอร์</v-card-subtitle>
-    </v-card>
+    <div class="container">
+      <v-card class="d-flex" width="70%" elevation="12" >
+        <v-img
+          src="../assets/profile.jpg"
+          width="30vb"
+          height="auto"
+          contain
+        ></v-img>
+        <v-card-text>
+          <v-card-title class="Title">{{ name }}</v-card-title>
+          <v-card-subtitle>{{ title }}</v-card-subtitle>
+          <v-card-text> งานอดิเรก : {{ hobby }}</v-card-text>
+          <v-card-text>
+            <v-row>
+                <v-col cols="12">
+                <v-icon left color="green">mdi-thumb-up</v-icon>{{ like }} <v-icon left color="red">mdi-thumb-down</v-icon>{{ dislike }}   
+              </v-col>
+              <v-col cols="12">
+                <v-icon left>mdi-email</v-icon>{{ email }}
+              </v-col>
+              <v-col cols="12">
+                <v-icon left>mdi-phone</v-icon>{{ phone }}
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card-text>
+      </v-card>
+    </div>
   </div>
 </template>
-
-<script>
-export default {};
+  
+  <script>
+export default {
+  name: "Profile",
+  data() {
+    return {
+      name: "Jurin Laiyakosit",
+      title: "มหาวิทยาลัยสงขลานครินทร์ สาขาวิศวกรรมคอมพิวเตอร์",
+      email: "jurin37@hotmail.co.th",
+      phone: "+66950244763",
+      hobby: "อ่านหนังสือ ฟังเพลง เล่นเกม",
+      like: "แมว",
+      dislike: "แมลงสาบ",
+    };
+  },
+};
 </script>
-
-<style>
-h1 {
-  color: blue;
-  text-align: center;
-  font-size: 50px;
-}
-.conntainer {
+  
+  <style scoped>
+.container {
   display: flex;
   justify-content: center;
-  align-content: center;
-  width: 70%;
-  margin: auto;
+  align-items: center;
+  height: 60vh;;
 }
-.profilecard {
-    margin: auto;
-    width: 50%;
+h1 {
+  text-align: center;
+  font-size: 4vw;
+  font-weight: bold;
+  margin-top: 30wh;
+  color: white;
+  background-color: black;
 }
-
+.Title {
+  font-size: 4vw;
+  margin-bottom: 4%;
+  color:black;
+  font-family: fantasy;
+}
 </style>
