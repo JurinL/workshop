@@ -2,21 +2,22 @@
   <div class="Profile">
     <h1>My Profile</h1>
     <div class="container">
-      <v-card class="d-flex" width="70%" elevation="12" >
+      <v-card class="d-flex" width="70%" elevation="12" height="auto">
         <v-img
           src="../assets/profile.jpg"
-          width="30vb"
+          width="34vb"
           height="auto"
           contain
         ></v-img>
         <v-card-text>
           <v-card-title class="Title">{{ name }}</v-card-title>
-          <v-card-subtitle>{{ title }}</v-card-subtitle>
+          <v-card-subtitle>{{ university }}</v-card-subtitle>
           <v-card-text> งานอดิเรก : {{ hobby }}</v-card-text>
           <v-card-text>
             <v-row>
-                <v-col cols="12">
-                <v-icon left color="green">mdi-thumb-up</v-icon>{{ like }} <v-icon left color="red">mdi-thumb-down</v-icon>{{ dislike }}   
+              <v-col cols="12">
+                <v-icon left color="green">mdi-thumb-up</v-icon>{{ like }}
+                <v-icon left color="red">mdi-thumb-down</v-icon>{{ dislike }}
               </v-col>
               <v-col cols="12">
                 <v-icon left>mdi-email</v-icon>{{ email }}
@@ -38,7 +39,7 @@ export default {
   data() {
     return {
       name: "Jurin Laiyakosit",
-      title: "มหาวิทยาลัยสงขลานครินทร์ สาขาวิศวกรรมคอมพิวเตอร์",
+      university: "มหาวิทยาลัยสงขลานครินทร์ สาขาวิศวกรรมคอมพิวเตอร์",
       email: "jurin37@hotmail.co.th",
       phone: "+66950244763",
       hobby: "อ่านหนังสือ ฟังเพลง เล่นเกม",
@@ -49,12 +50,12 @@ export default {
 };
 </script>
   
-  <style scoped>
+<style scoped>
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 60vh;;
+  height: 60vh;
 }
 h1 {
   text-align: center;
@@ -67,7 +68,12 @@ h1 {
 .Title {
   font-size: 4vw;
   margin-bottom: 4%;
-  color:black;
+  color: black;
   font-family: fantasy;
+}
+.v-icon {
+    font-size: 2.5vw;
+    margin-right: 1vw;
+    margin-left: 1vw;
 }
 </style>
