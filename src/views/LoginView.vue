@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import { EventBus } from "@/EventBus.js"; // import ทั้งสองไฟล์
 import CardImg from "../components/CardImg.vue";
 import TestProps from "../components/TestProps.vue";
 
@@ -88,6 +89,12 @@ export default {
         },
       ],
     };
+  },
+  mounted() {
+    EventBus.$on("CallAlertMain", this.callAlert); // ส่งฟังก์ชัน callAlert ผ่าน EventBus
+  },
+  beforeDestroy() {
+    EventBus.$off("CallAlertMain"); // ยกเลิกการรับฟังก์ชัน callAlert ผ่าน EventBus
   },
   methods: {
     callAlert() {
