@@ -1,31 +1,27 @@
 <template>
-  <div class="Profile">
+  <div>
     <h1>My Profile</h1>
     <div class="container">
-      <v-card class="d-flex" width="70%" elevation="12" height="auto">
+      <v-card class="d-flex" elevation="12" height="45vh">
         <v-img
           src="../assets/profile.jpg"
           width="34vb"
-          height="auto"
           contain
         ></v-img>
+
         <v-card-text>
           <v-card-title class="Title">{{ name }}</v-card-title>
           <v-card-subtitle>{{ university }}</v-card-subtitle>
           <v-card-text> งานอดิเรก : {{ hobby }}</v-card-text>
           <v-card-text>
-            <v-row>
-              <v-col cols="12">
-                <v-icon left color="green">mdi-thumb-up</v-icon>{{ like }}
-                <v-icon left color="red">mdi-thumb-down</v-icon>{{ dislike }}
-              </v-col>
-              <v-col cols="12">
+              <v-list-item>
                 <v-icon left>mdi-email</v-icon>{{ email }}
-              </v-col>
-              <v-col cols="12">
                 <v-icon left>mdi-phone</v-icon>{{ phone }}
-              </v-col>
-            </v-row>
+              </v-list-item>
+              <v-card-actions style="display: flex; justify-content: center">
+                <v-btn color="success" width="15vw"><v-icon size="30">mdi-thumb-up</v-icon>Like</v-btn>
+                <v-btn color="red" width="15vw"><v-icon size="30">mdi-thumb-down</v-icon>Dislike</v-btn>
+              </v-card-actions>
           </v-card-text>
         </v-card-text>
       </v-card>
@@ -33,7 +29,7 @@
   </div>
 </template>
   
-  <script>
+<script>
 export default {
   name: "Profile",
   data() {
@@ -45,6 +41,7 @@ export default {
       hobby: "อ่านหนังสือ ฟังเพลง เล่นเกม",
       like: "แมว",
       dislike: "แมลงสาบ",
+      show: false,
     };
   },
 };
@@ -64,6 +61,7 @@ h1 {
   margin-top: 30wh;
   color: white;
   background-color: black;
+  font-family: monospace;
 }
 .Title {
   font-size: 4vw;
@@ -72,8 +70,8 @@ h1 {
   font-family: fantasy;
 }
 .v-icon {
-    font-size: 2.5vw;
-    margin-right: 1vw;
-    margin-left: 1vw;
+  font-size: 2.5vw;
+  margin-right: 1vw;
+  margin-left: 1vw;
 }
 </style>
