@@ -1,6 +1,27 @@
 <template>
   <div>
-    <h1>API CONNECT</h1>
+    <v-container>
+    <v-row>
+      <v-col cols="12">
+        <v-card class="mb-4">
+          <v-card-title class="text-h4">
+            Online Shop
+            <v-spacer></v-spacer>
+            <v-badge
+              :content="cartItems.length"
+              :value="cartItems.length"
+              color="red"
+              overlap
+            >
+              <v-btn icon>
+                <v-icon @click="cartDialog = true">mdi-cart</v-icon>
+              </v-btn>
+            </v-badge>
+          </v-card-title>
+        </v-card>
+      </v-col>
+    </v-row>
+
     <v-btn color="success" @click="newItem()">newItem</v-btn>
     <v-row>
       <v-col cols="3" v-for="(item, index) in apidata" :key="index">
@@ -10,13 +31,22 @@
             <v-card-title primary-title class="text-h5">
               {{ item.productName }}
             </v-card-title>
+            <v-card-text>
+              <div class="text-h6 primary--text">{{ item.price }}฿</div>
+            </v-card-text>
             <v-card-subtitle>
               {{ item.description }}
             </v-card-subtitle>
-            <v-card-text>
-              {{ item.price }}฿,{{ item.stock }}
-            </v-card-text>
             <v-card-actions>
+              <v-card-text>Stock left: {{ item.stock }}</v-card-text>
+              <v-btn
+              color="primary"
+              @click="addToCart(item)"
+            >
+              Add to Cart
+              <v-icon right>mdi-cart-plus</v-icon>
+            </v-btn>
+            <v-spacer></v-spacer>
               <v-btn color="success" @click="editItem(item)">edit</v-btn>
               <v-btn color="error" @click="deleteItem(item)">delete</v-btn>
             </v-card-actions>
@@ -24,6 +54,8 @@
         </div>
       </v-col>
     </v-row>
+
+    <!-- Edit Create Dialog -->
     <v-dialog v-model="dialogedit" width="600">
       <v-card>
         <v-card-title primary-title> {{ savemode }} </v-card-title>
@@ -48,6 +80,42 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <!-- Shopping Cart Dialog -->
+    <v-dialog v-model="cartDialog" max-width="500px">
+      <v-card>
+        <v-card-title>Shopping Cart</v-card-title>
+        <v-card-text>
+          <v-list>
+            <v-list-item v-for="item in cartItems" :key="item.id">
+              <v-list-item-content>
+                <v-list-item-title>{{ item.productName }}</v-list-item-title>
+                <v-list-item-subtitle>{{ item.price }}฿</v-list-item-subtitle>
+              </v-list-item-content>
+              <v-list-item-action>
+                <v-btn icon @click="removeFromCart(item)">
+                  <v-icon>mdi-delete</v-icon>
+                </v-btn>
+              </v-list-item-action>
+            </v-list-item>
+          </v-list>
+          <v-divider></v-divider>
+          <div class="text-h6 pt-4">
+            Total: ${{ cartTotal }}
+          </div>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" @click="checkout">
+            Checkout
+          </v-btn>
+          <v-btn color="grey" text @click="cartDialog = false">
+            Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-container>
   </div>
 </template>
 
@@ -57,6 +125,8 @@ export default {
     return {
       apidata: [],
       id: "",
+      cartDialog: false,
+      cartItems: [],
       postStatus: false,
       postdata: {
         // ใช้สำหรับส่งข้อมูลไปยัง API
@@ -78,6 +148,9 @@ export default {
   computed: {
     savemode(){
         return this.id === '' ? 'New Product' : 'Edit Product'
+    },
+    cartTotal() {
+      return this.cartItems.reduce((total, item) => total + item.price, 0).toFixed(2)
     }
   },
   created() {
@@ -141,7 +214,7 @@ export default {
       }
     },
     async deleteItem (item) {
-      if(confirm('Are you sure? you want to delete ' + item.name + '?'))
+      if(confirm('Are you sure? you want to delete ' + item.productName + '?'))
       try {
         const {data} = await this.axios.delete('http://localhost:3000/products/'+ item._id)
         console.log(data)
@@ -152,8 +225,29 @@ export default {
         console.log(error)
         alert('error')
       }
+    },
+    addToCart(product) {
+      this.cartItems.push(product)
+      this.$nextTick(() => {
+        this.cartDialog = true
+      })
+    },
+    removeFromCart(item) {
+      const index = this.cartItems.indexOf(item)
+      if (index > -1) {
+        this.cartItems.splice(index, 1)
+      }
+    },
+    checkout() {
+        if (this.cartItems.length === 0) alert('Your cart is empty.')
+        else {
+            alert('Thank you for your purchase!')
+            this.cartItems = []
+            this.cartDialog = false
+        }
+      
     }
-  },
+  }
 };
 </script>
 
