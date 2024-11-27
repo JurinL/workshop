@@ -7,9 +7,15 @@
         <div>
           <v-card width="350">
             <v-img src="../assets/profile.jpg"></v-img>
-            <v-card-title primary-title>
-              {{ item.name }} {{ item.surname }}, {{ item.age }}
+            <v-card-title primary-title class="text-h5">
+              {{ item.productName }}
             </v-card-title>
+            <v-card-subtitle>
+              {{ item.description }}
+            </v-card-subtitle>
+            <v-card-text>
+              {{ item.price }}฿,{{ item.stock }}
+            </v-card-text>
             <v-card-actions>
               <v-btn color="success" @click="editItem(item)">edit</v-btn>
               <v-btn color="error" @click="deleteItem(item)">delete</v-btn>
@@ -24,20 +30,14 @@
         <v-card-text> 
             <v-row>
                 <v-col cols="12">
-                    <v-text-field :disabled="!postStatus" name="username" label="Username" id="id" v-model="postdata.username" outlined></v-text-field>
-                    <v-text-field :disabled="!postStatus" name="password" label="Password" id="id" v-model="postdata.password" password outlined></v-text-field>
+                    <v-text-field name="productName" label="Product Name" id="id" v-model="postdata.productName" outlined></v-text-field>
+                    <v-textarea name="description" label="Description" id="id" v-model="postdata.description" outlined></v-textarea>
                 </v-col>
                 <v-col cols="6">
-                    <v-text-field name="name" label="Name" id="id" v-model="postdata.name" outlined></v-text-field>
+                    <v-text-field name="price" label="Price" id="id" v-model="postdata.price" outlined hint="Only Numbers"></v-text-field>
                 </v-col>
                 <v-col cols="6">
-                    <v-text-field name="surname" label="Surname" id="id" v-model="postdata.surname" outlined></v-text-field>
-                </v-col>
-                <v-col cols="6">
-                    <v-text-field name="age" label="Age" id="id" v-model="postdata.age" outlined hint="Only Numbers"></v-text-field>
-                </v-col>
-                <v-col cols="6">
-                    <v-text-field name="sex" label="Sex" id="id" v-model="postdata.sex" outlined hint="male, female"></v-text-field>
+                    <v-text-field name="stock" label="Stock" id="id" v-model="postdata.stock" outlined hint="Only Numbers"></v-text-field>
                 </v-col>
             </v-row>
         </v-card-text>
@@ -60,28 +60,24 @@ export default {
       postStatus: false,
       postdata: {
         // ใช้สำหรับส่งข้อมูลไปยัง API
-        username: "",
-        password: "",
-        name: "",
-        surname: "",
-        age: "",
-        sex: "",
+        productName: "",
+        description: "",
+        price: "",
+        stock: "",
       },
       postdefault: {
         // ใช้สำหรับเคลียข้อมูลที่ส่งไปยัง API
-        username: "",
-        password: "",
-        name: "",
-        surname: "",
-        age: "",
-        sex: "",
+        productName: "",
+        description: "",
+        price: "",
+        stock: "",
       },
       dialogedit: false,
     };
   },
   computed: {
     savemode(){
-        return this.id === '' ? 'New User' : 'Edit User'
+        return this.id === '' ? 'New Product' : 'Edit Product'
     }
   },
   created() {
@@ -113,7 +109,7 @@ export default {
       }
     },
     getData() {
-      this.axios.get("http://localhost:3000/users" 
+      this.axios.get("http://localhost:3000/products" 
 //,{ headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') } } สำหรับการใช้งาน API ที่ต้องการการตรวจสอบสิทธิ์
       ).then((response) => {
         console.log(response.data);
@@ -122,7 +118,7 @@ export default {
     },
     async savePostdata () {
       try {
-        const {data} = await this.axios.post('http://localhost:3000/users', this.postdata)
+        const {data} = await this.axios.post('http://localhost:3000/products', this.postdata)
         console.log(data)
         alert('create success')
         this.getData()
@@ -134,7 +130,7 @@ export default {
     },
     async savePutdata () {
       try {
-        const {data} = await this.axios.put('http://localhost:3000/users/'+ this.id, this.postdata)
+        const {data} = await this.axios.put('http://localhost:3000/products/'+ this.id, this.postdata)
         console.log(data)
         alert('update success')
         this.getData()
@@ -147,7 +143,7 @@ export default {
     async deleteItem (item) {
       if(confirm('Are you sure? you want to delete ' + item.name + '?'))
       try {
-        const {data} = await this.axios.delete('http://localhost:3000/users/'+ item._id)
+        const {data} = await this.axios.delete('http://localhost:3000/products/'+ item._id)
         console.log(data)
         alert('delete success')
         this.getData()
