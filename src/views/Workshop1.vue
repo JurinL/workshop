@@ -17,40 +17,73 @@
         <div class="container">
           <v-card class="d-flex" height="50vh" width="75%" v-if="selectedPerson">
             <v-img :src="selectedPerson.image" width="20vw" height="50vh"></v-img>
+              <v-card-text>
+                <v-card-title class="Title">{{ selectedPerson.name }}</v-card-title>
+                <v-divider></v-divider>
+                <v-card-subtitle>{{ selectedPerson.university }}</v-card-subtitle>
+                <v-card-subtitle>System Engineer</v-card-subtitle>
+                <v-row>
+                  <v-col cols="6">
+                    <v-list>
+                      <v-list-item>
+                        <v-icon color="blue">mdi-email</v-icon>
+                        <v-list-item-content>
+                          <v-list-item-title>Email</v-list-item-title>
+                          <v-list-item-subtitle>{{ selectedPerson.email }}</v-list-item-subtitle>
+                        </v-list-item-content>
+                      </v-list-item>
 
-            <v-card-text>
-              <v-card-title class="Title">{{ selectedPerson.name }}</v-card-title>
-              <v-divider></v-divider>
-              <v-card-subtitle>{{ selectedPerson.university }}</v-card-subtitle>
+                      <v-list-item>
+                        <v-icon color="purple">mdi-phone</v-icon>
+                        <v-list-item-content>
+                          <v-list-item-title>Phone</v-list-item-title>
+                          <v-list-item-subtitle>{{ selectedPerson.phone }}</v-list-item-subtitle>
+                        </v-list-item-content>
+                      </v-list-item>
+                        <v-list-item>
+                          <v-icon color="blue darken-3">mdi-facebook</v-icon>
+                          <v-list-item-content>
+                            <v-list-item-title>Facebook</v-list-item-title>
+                            <v-list-item-subtitle>
+                              <a :href="selectedPerson.facebookUrl" target="_blank" class="facebook-link">
+                                {{ selectedPerson.facebook }}
+                              </a>
+                            </v-list-item-subtitle>
+                          </v-list-item-content>
+                        </v-list-item>
+                      </v-list>
+                  </v-col>
 
-              <v-list>
-                <v-list-item>
-                  <v-icon color="green">mdi-thumb-up</v-icon>
-                  <v-list-item-content>
-                    <v-list-item-title>Likes</v-list-item-title>
-                    <v-list-item-subtitle>{{ selectedPerson.likes }}</v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
+                  <v-col cols="6">
+                    <v-list>
+                      <v-list-item>
+                        <v-icon color="green">mdi-thumb-up</v-icon>
+                        <v-list-item-content>
+                          <v-list-item-title>Likes</v-list-item-title>
+                          <v-list-item-subtitle>{{ selectedPerson.likes }}</v-list-item-subtitle>
+                        </v-list-item-content>
+                      </v-list-item>
 
-                <v-list-item>
-                  <v-icon color="red">mdi-thumb-down</v-icon>
-                  <v-list-item-content>
-                    <v-list-item-title>Dislikes</v-list-item-title>
-                    <v-list-item-subtitle>{{ selectedPerson.dislikes }}</v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
+                      <v-list-item>
+                        <v-icon color="red">mdi-thumb-down</v-icon>
+                        <v-list-item-content>
+                          <v-list-item-title>Dislikes</v-list-item-title>
+                          <v-list-item-subtitle>{{ selectedPerson.dislikes }}</v-list-item-subtitle>
+                        </v-list-item-content>
+                      </v-list-item>
 
-                <v-list-item>
-                  <v-icon color="yellow">mdi-star</v-icon>
-                  <v-list-item-content>
-                    <v-list-item-title>Hobbies</v-list-item-title>
-                    <v-list-item-subtitle>{{ selectedPerson.hobby }}</v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
-
-              </v-list>
-            </v-card-text>
-          </v-card>
+                      <v-list-item>
+                        <v-icon color="yellow">mdi-star</v-icon>
+                        <v-list-item-content>
+                          <v-list-item-title>Hobbies</v-list-item-title>
+                          <v-list-item-subtitle>{{ selectedPerson.hobby }}</v-list-item-subtitle>
+                        </v-list-item-content>
+                      </v-list-item>
+                    </v-list>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+            </v-card>
         </div>
       </v-dialog>
     </v-container>
@@ -66,17 +99,31 @@ export default {
       dialog: false,
       selectedPerson: null,
       people: [
-        {
-          name: 'Jurin Laiyakosit',
-          image: JurinImg,
-          university: 'Prince of Songkla University, Computer Engineering',
-          email: 'jurin37@hotmail.co.th',
-          phone: '+66950244763',
-          hobby: 'Reading, Gaming, Music',
-          likes: 'Cats, Books, Weekends',
-          dislikes: 'Bugs, Traffic, Mondays'
-        },
-      ]
+  {
+    name: 'Jurin Laiyakosit',
+    image: JurinImg,
+    university: 'Prince of Songkla University, Computer Engineering',
+    email: 'jurin37@hotmail.co.th',
+    phone: '+66950244763',
+    facebook: 'Jurin Laiyakosit',
+    facebookUrl: 'https://www.facebook.com/Jurin.zz',  // Replace with your actual Facebook URL
+    hobby: 'Reading, Gaming, Music',
+    likes: 'Cats, Books, Weekends',
+    dislikes: 'Bugs, Traffic, Mondays'
+  },
+  {
+    name: 'Test Test',
+    image: "https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg",
+    university: 'Prince of Songkla University, Computer Engineering',
+    email: 'jurin37@hotmail.co.th',
+    phone: '+66950244763',
+    facebook: 'Jurin Laiyakosit',
+    facebookUrl: 'https://www.facebook.com/Jurin.zz',  // Replace with your actual Facebook URL
+    hobby: 'Reading, Gaming, Music',
+    likes: 'Cats, Books, Weekends',
+    dislikes: 'Bugs, Traffic, Mondays'
+  }
+]
     }
   },
   methods: {
@@ -89,6 +136,13 @@ export default {
 </script>
 
 <style scoped>
+.facebook-link {
+  text-decoration: none;
+  color: inherit;
+}
+.facebook-link:hover {
+  color: #4267B2;
+}
 .v-card {
   transition: transform 0.2s;
 }

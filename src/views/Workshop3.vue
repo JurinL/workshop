@@ -33,16 +33,11 @@
         md="4"
         lg="3"
       >
-        <v-card>
-          <v-img
-            :src="product.image"
-            height="200px"
-            cover
-          ></v-img>
-
+        <v-card height="420">
+          <v-img :src="product.image" height="200px" cover></v-img>
           <v-card-title>{{ product.name }}</v-card-title>
           <v-card-text>
-            <div class="text-h6 primary--text">${{ product.price }}</div>
+            <div class="text-h6 primary--text">{{ product.price }}฿</div>
             <div>{{ product.description }}</div>
           </v-card-text>
 
@@ -60,6 +55,7 @@
               readonly
               dense
               half-increments
+              size="18"
             ></v-rating>
           </v-card-actions>
         </v-card>
@@ -75,7 +71,7 @@
             <v-list-item v-for="item in cartItems" :key="item.id">
               <v-list-item-content>
                 <v-list-item-title>{{ item.name }}</v-list-item-title>
-                <v-list-item-subtitle>${{ item.price }}</v-list-item-subtitle>
+                <v-list-item-subtitle>{{ item.price }}฿</v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-action>
                 <v-btn icon @click="removeFromCart(item)">
