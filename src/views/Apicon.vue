@@ -12,6 +12,7 @@
             </v-card-title>
             <v-card-actions>
               <v-btn color="success" @click="editItem(item)">edit</v-btn>
+              <v-btn color="error" @click="deleteItem(item)">delete</v-btn>
             </v-card-actions>
           </v-card>
         </div>
@@ -112,7 +113,9 @@ export default {
       }
     },
     getData() {
-      this.axios.get("http://localhost:3000/users").then((response) => {
+      this.axios.get("http://localhost:3000/users" 
+//,{ headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') } } สำหรับการใช้งาน API ที่ต้องการการตรวจสอบสิทธิ์
+      ).then((response) => {
         console.log(response.data);
         this.apidata = response.data;
       });
@@ -121,7 +124,7 @@ export default {
       try {
         const {data} = await this.axios.post('http://localhost:3000/users', this.postdata)
         console.log(data)
-        alert('save success')
+        alert('create success')
         this.getData()
         this.closeItem()
       }catch(error){
@@ -133,7 +136,20 @@ export default {
       try {
         const {data} = await this.axios.put('http://localhost:3000/users/'+ this.id, this.postdata)
         console.log(data)
-        alert('save success')
+        alert('update success')
+        this.getData()
+        this.closeItem()
+      }catch(error){
+        console.log(error)
+        alert('error')
+      }
+    },
+    async deleteItem (item) {
+      if(confirm('Are you sure? you want to delete ' + item.name + '?'))
+      try {
+        const {data} = await this.axios.delete('http://localhost:3000/users/'+ item._id)
+        console.log(data)
+        alert('delete success')
         this.getData()
         this.closeItem()
       }catch(error){
