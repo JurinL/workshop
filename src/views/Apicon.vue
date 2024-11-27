@@ -8,7 +8,12 @@
               Online Shop
               <v-spacer></v-spacer>
               <!-- ส่วนของปุ่มตะกร้าขวาบน -->
-              <v-badge :content="cartItems.length" :value="cartItems.length" color="red" overlap>
+              <v-badge
+                :content="cartItems.length"
+                :value="cartItems.length"
+                color="red"
+                overlap
+              >
                 <v-btn icon>
                   <v-icon @click="cartDialog = true">mdi-cart</v-icon>
                 </v-btn>
@@ -29,10 +34,13 @@
                 {{ item.productName }}
 
                 <!-- ส่วนของปุ่มแก้ไข และ ลบ ข้อมูลสินค้าแต่ละอัน -->
-                <v-icon right color="success" @click="editItem(item)" text>mdi-pencil</v-icon>
-                <v-icon right color="error" @click="deleteItem(item)">mdi-delete</v-icon>
+                <v-icon right color="success" @click="editItem(item)" text
+                  >mdi-pencil</v-icon
+                >
+                <v-icon right color="error" @click="deleteItem(item)"
+                  >mdi-delete</v-icon
+                >
                 <!-- oooooooooooooooooooooooooooooooooooo -->
-
               </v-card-title>
               <v-card-text>
                 <div class="text-h6 primary--text">{{ item.price }}฿</div>
@@ -44,11 +52,21 @@
                 <!-- จำนวนสินค้าคงเหลือ -->
                 <v-card-text>Stock left: {{ item.stock }}</v-card-text>
                 <!-- ส่วนของการเพิ่มลบจำนวนสินค้า -->
-                <v-btn icon small :disabled="item.quantity <= 1" @click="item.quantity--">
+                <v-btn
+                  icon
+                  small
+                  :disabled="item.quantity <= 1"
+                  @click="item.quantity--"
+                >
                   <v-icon>mdi-minus</v-icon>
                 </v-btn>
                 <span class="mx-2">{{ item.quantity }}</span>
-                <v-btn icon small :disabled="item.quantity >= item.stock" @click="item.quantity++">
+                <v-btn
+                  icon
+                  small
+                  :disabled="item.quantity >= item.stock"
+                  @click="item.quantity++"
+                >
                   <v-icon>mdi-plus</v-icon>
                 </v-btn>
                 <!-- ส่วนของปุ่มเเพิ่มเข้าตะกร้า -->
@@ -134,11 +152,11 @@
               </v-list-item>
             </v-list>
             <v-divider></v-divider>
-            <div class="text-h6 pt-4">Total: ${{ cartTotal }}</div>
+            <div class="text-h6 pt-4">Total: {{ cartTotal }}฿</div>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="checkout"> Checkout </v-btn>
+            <v-btn color="primary" @click="checkout()"> Checkout </v-btn>
             <v-btn color="grey" text @click="cartDialog = false"> Close </v-btn>
           </v-card-actions>
         </v-card>
@@ -179,7 +197,7 @@ export default {
     },
     cartTotal() {
       return this.cartItems
-        .reduce((total, item) => total + item.price, 0)
+        .reduce((total, item) => total + item.price * item.quantity, 0)
         .toFixed(2);
     },
   },
@@ -306,18 +324,57 @@ export default {
       }
       localStorage.setItem("cart", JSON.stringify(this.cartItems));
     },
-    checkout() {
-      if (this.cartItems.length === 0) alert("Your cart is empty.");
-      else {
-        alert("Thank you for your purchase!");
-        this.cartItems = [];
-        this.cartDialog = false;
-      }
-    },
     getCartItems() {
       const cart = localStorage.getItem("cart");
       if (cart) {
         this.cartItems = JSON.parse(cart);
+      }
+    },
+    async checkout() {
+      if (this.cartItems.length === 0) {
+        alert("Your cart is empty.");
+        return;
+      }
+
+      try {
+        const orderData = {
+          items: this.cartItems.map((item) => ({
+            productId: item._id,
+            productName: item.productName,
+            quantity: item.cartQuantity,
+            price: item.price,
+          })),
+          totalAmount: this.cartTotal,
+          orderDate: new Date(),
+          status: "pending",
+        };
+        console.log(orderData);
+
+        const { data } = await this.axios.post(
+          "http://localhost:3000/orders/",
+          orderData
+        );
+        console.log(data);
+        // Update product stock
+        for (const item of this.cartItems) {
+          const updatedStock = {
+            ...item,
+            stock: item.stock - item.cartQuantity,
+          };
+          await this.axios.put(
+            `http://localhost:3000/products/${item._id}`,
+            updatedStock
+          );
+        }
+
+        alert("Order placed successfully!");
+        this.cartItems = [];
+        this.cartDialog = false;
+        localStorage.removeItem("cart");
+        this.getData(); // Refresh product list to show updated stock
+      } catch (error) {
+        console.error("Checkout error:", error);
+        alert("Failed to place order. Please try again.");
       }
     },
   },
