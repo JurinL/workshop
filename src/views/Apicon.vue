@@ -24,12 +24,14 @@
 
     <v-btn color="success" @click="newItem()">newItem</v-btn>
     <v-row>
-      <v-col cols="3" v-for="(item, index) in apidata" :key="index">
+      <v-col cols="4" v-for="(item, index) in apidata" :key="index">
         <div>
-          <v-card width="350">
+          <v-card width="400">
             <v-img src="../assets/profile.jpg"></v-img>
             <v-card-title primary-title class="text-h5">
               {{ item.productName }}
+              <v-icon right color="success" @click="editItem(item)" text>mdi-pencil</v-icon>
+              <v-icon right color="error" @click="deleteItem(item)">mdi-delete</v-icon> 
             </v-card-title>
             <v-card-text>
               <div class="text-h6 primary--text">{{ item.price }}฿</div>
@@ -39,16 +41,7 @@
             </v-card-subtitle>
             <v-card-actions>
               <v-card-text>Stock left: {{ item.stock }}</v-card-text>
-              <v-btn
-              color="primary"
-              @click="addToCart(item)"
-            >
-              Add to Cart
-              <v-icon right>mdi-cart-plus</v-icon>
-            </v-btn>
-            <v-spacer></v-spacer>
-              <v-btn color="success" @click="editItem(item)">edit</v-btn>
-              <v-btn color="error" @click="deleteItem(item)">delete</v-btn>
+              <v-btn color="primary" @click="addToCart(item)">Add to Cart<v-icon right>mdi-cart-plus</v-icon></v-btn>
             </v-card-actions>
           </v-card>
         </div>
@@ -155,6 +148,7 @@ export default {
   },
   created() {
     this.getData();
+    this.getCartItems();
   },
   methods: {
     newItem(){
@@ -231,12 +225,14 @@ export default {
       this.$nextTick(() => {
         this.cartDialog = true
       })
+      localStorage.setItem('cart', JSON.stringify(this.cartItems))
     },
     removeFromCart(item) {
       const index = this.cartItems.indexOf(item)
       if (index > -1) {
         this.cartItems.splice(index, 1)
       }
+      localStorage.setItem('cart', JSON.stringify(this.cartItems))
     },
     checkout() {
         if (this.cartItems.length === 0) alert('Your cart is empty.')
@@ -245,7 +241,12 @@ export default {
             this.cartItems = []
             this.cartDialog = false
         }
-      
+    },
+    getCartItems() {
+      const cart = localStorage.getItem('cart')
+      if (cart) {
+        this.cartItems = JSON.parse(cart)
+      }
     }
   }
 };
