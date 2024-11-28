@@ -2,8 +2,9 @@
   <div>
     <v-app-bar
       app
-      color="primary"
+      color="green darken-1"
       dark
+      elevation="4"
     >
       <div class="d-flex align-center">
         <v-img
@@ -14,26 +15,58 @@
           transition="scale-transition"
           width="40"
         />
-
-        <v-img
-          alt="Jurin Laiyakosit's VueJS "
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
       </div>
 
       <v-spacer></v-spacer>
 
       <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
         text
+        to="/"
+        class="mx-2"
       >
-        <span class="mr-2">{{User}} {{ User2 }}</span>
-        <v-icon>mdi-open-in-new</v-icon>
+        <v-icon left>mdi-home</v-icon>
+        Home
+      </v-btn>
+
+      <v-btn
+        text
+        to="/apicon"
+        class="mx-2"
+      >
+        <v-icon left>mdi-shopping</v-icon>
+        Online Shopping
+      </v-btn>
+
+      <v-btn
+        text
+        to="/orders"
+        class="mx-2"
+      >
+        <v-icon left>mdi-clipboard-list</v-icon>
+        Orders
+      </v-btn>
+
+      <v-btn
+        text
+        to="/workshop1"
+        class="mx-2"
+      >
+        <v-icon left>mdi-tools</v-icon>
+        Workshop 1
+      </v-btn>
+
+      <v-btn
+        text
+        to="/workshop2"
+        class="mx-2"
+      >
+        <v-icon left>mdi-tools</v-icon>
+        Workshop 2
+      </v-btn>
+
+      <v-btn text class="ml-4">
+        <v-icon left>mdi-account</v-icon>
+        <span>{{User}} {{ User2 }}</span>
       </v-btn>
     </v-app-bar>
 
@@ -59,5 +92,13 @@ export default {
 </script>
 
 <style>
+.v-btn {
+  text-transform: none;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
 
+.v-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
 </style>
