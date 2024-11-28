@@ -37,10 +37,10 @@
       </v-row>
 
       <!-- Update new item button -->
-      <v-btn color="green darken-2" dark class="mb-4" @click="newItem()">
+      <!-- <v-btn color="green darken-2" dark class="mb-4" @click="newItem()">
         <v-icon left>mdi-plus</v-icon>
         Add New Item
-      </v-btn>
+      </v-btn> -->
 
       <!-- Update product cards -->
       <v-row>
