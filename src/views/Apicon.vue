@@ -1,83 +1,70 @@
 <template>
-  <div>
+  <div class="green-theme">
     <v-container>
+      <!-- Update header card -->
       <v-row>
         <v-col cols="12">
-          <v-card class="mb-4">
-            <v-card-title class="text-h4">
+          <v-card class="mb-4" color="green darken-1">
+            <v-card-title class="text-h4 white--text">
               Online Shop
               <v-spacer></v-spacer>
-              <!-- ส่วนของปุ่มตะกร้าขวาบน -->
               <v-badge
                 :content="cartItems.length"
                 :value="cartItems.length"
                 color="red"
                 overlap
               >
-                <v-btn icon>
+                <v-btn icon color="white">
                   <v-icon @click="cartDialog = true">mdi-cart</v-icon>
                 </v-btn>
               </v-badge>
-              <!-- ooooooooooooooooooo -->
             </v-card-title>
           </v-card>
         </v-col>
       </v-row>
 
-      <v-btn color="success" @click="newItem()">newItem</v-btn>
+      <!-- Update new item button -->
+      <v-btn color="green darken-2" dark class="mb-4" @click="newItem()">
+        <v-icon left>mdi-plus</v-icon>
+        Add New Item
+      </v-btn>
+
+      <!-- Update product cards -->
       <v-row>
         <v-col cols="4" v-for="(item, index) in apidata" :key="index">
-          <div>
-            <v-card width="400">
-              <v-img src="../assets/profile.jpg"></v-img>
-              <v-card-title primary-title class="text-h5">
-                {{ item.productName }}
-
-                <!-- ส่วนของปุ่มแก้ไข และ ลบ ข้อมูลสินค้าแต่ละอัน -->
-                <v-icon right color="success" @click="editItem(item)" text
-                  >mdi-pencil</v-icon
-                >
-                <v-icon right color="error" @click="deleteItem(item)"
-                  >mdi-delete</v-icon
-                >
-                <!-- oooooooooooooooooooooooooooooooooooo -->
-              </v-card-title>
-              <v-card-text>
-                <div class="text-h6 primary--text">{{ item.price }}฿</div>
-              </v-card-text>
-              <v-card-subtitle>
-                {{ item.description }}
-              </v-card-subtitle>
-              <v-card-actions>
-                <!-- จำนวนสินค้าคงเหลือ -->
-                <v-card-text>Stock left: {{ item.stock }}</v-card-text>
-                <!-- ส่วนของการเพิ่มลบจำนวนสินค้า -->
-                <v-btn
-                  icon
-                  small
-                  :disabled="item.quantity <= 1"
-                  @click="item.quantity--"
-                >
-                  <v-icon>mdi-minus</v-icon>
-                </v-btn>
-                <span class="mx-2">{{ item.quantity }}</span>
-                <v-btn
-                  icon
-                  small
-                  :disabled="item.quantity >= item.stock"
-                  @click="item.quantity++"
-                >
-                  <v-icon>mdi-plus</v-icon>
-                </v-btn>
-                <!-- ส่วนของปุ่มเเพิ่มเข้าตะกร้า -->
-                <v-btn color="primary" @click="addToCart(item)">
-                  Add to Cart<v-icon right>mdi-cart-plus</v-icon>
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </div>
+          <v-card width="400" class="product-card" elevation="4">
+            <v-img src="../assets/profile.jpg" height="200" cover></v-img>
+            <v-card-title primary-title class="text-h5 green--text">
+              {{ item.productName }}
+              <v-spacer></v-spacer>
+              <v-icon color="green darken-2" @click="editItem(item)">mdi-pencil</v-icon>
+              <v-icon color="red" @click="deleteItem(item)">mdi-delete</v-icon>
+            </v-card-title>
+            <v-card-text>
+              <div class="text-h6 green--text text--darken-2">{{ item.price }}฿</div>
+            </v-card-text>
+            <v-card-subtitle>{{ item.description }}</v-card-subtitle>
+            <v-card-actions class="px-4">
+              <v-chip color="green lighten-4" small>
+                Stock: {{ item.stock }}
+              </v-chip>
+              <v-spacer></v-spacer>
+              <v-btn icon small :disabled="item.quantity <= 1" @click="item.quantity--">
+                <v-icon>mdi-minus</v-icon>
+              </v-btn>
+              <span class="mx-2">{{ item.quantity }}</span>
+              <v-btn icon small :disabled="item.quantity >= item.stock" @click="item.quantity++">
+                <v-icon>mdi-plus</v-icon>
+              </v-btn>
+              <v-btn color="green darken-1" dark @click="addToCart(item)">
+                Add to Cart
+                <v-icon right>mdi-cart-plus</v-icon>
+              </v-btn>
+            </v-card-actions>
+          </v-card>
         </v-col>
       </v-row>
+    </v-container>
 
       <!-- Edit Create Dialog -->
       <v-dialog v-model="dialogedit" width="600">
@@ -161,7 +148,6 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-    </v-container>
   </div>
 </template>
 
@@ -382,5 +368,24 @@ export default {
 </script>
 
 <style>
+.green-theme {
+  background-color: #f1f8e9;
+  min-height: 100vh;
+  padding: 20px 0;
+}
+
+.product-card {
+  transition: transform 0.2s;
+  border-radius: 8px;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.v-card-title {
+  border-bottom: 2px solid #81c784;
+}
 </style>
 
