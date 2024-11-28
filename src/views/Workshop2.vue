@@ -73,7 +73,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .grade-container {
   display: flex;
   flex-direction: column;

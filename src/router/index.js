@@ -29,39 +29,40 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () =>
           import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+      },
+      {
+        path: "/workshop1",
+        name: "workshop1",
+        component: () => import("../views/Workshop1.vue"),
+      },
+      {
+        path: "/workshop2",
+        name: "workshop2",
+        component: () => import("../views/Workshop2.vue"),
+      },
+      {
+        path: "/test",
+        name: "test",
+        component: () => import("../views/test.vue"),
+      },
+      {
+        path: "/workshop3",
+        name: "workshop3",
+        component: () => import("../views/Workshop3.vue"),
+      },
+      {
+        path: "/apicon",
+        name: "apicon",
+        component: () => import("../views/Apicon.vue"),
+      },
+      {
+        path: "/orders",
+        name: "orders",
+        component: () => import("../views/Orders.vue"),
       }
     ],
   },
-  {
-    path: "/workshop1",
-    name: "workshop1",
-    component: () => import("../views/Workshop1.vue"),
-  },
-  {
-    path: "/workshop2",
-    name: "workshop2",
-    component: () => import("../views/Workshop2.vue"),
-  },
-  {
-    path: "/test",
-    name: "test",
-    component: () => import("../views/test.vue"),
-  },
-  {
-    path: "/workshop3",
-    name: "workshop3",
-    component: () => import("../views/Workshop3.vue"),
-  },
-  {
-    path: "/apicon",
-    name: "apicon",
-    component: () => import("../views/Apicon.vue"),
-  },
-  {
-    path: "/orders",
-    name: "orders",
-    component: () => import("../views/Orders.vue"),
-  }
+  
 ];
 
 const router = new VueRouter({

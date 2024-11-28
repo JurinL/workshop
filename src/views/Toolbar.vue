@@ -91,7 +91,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .v-btn {
   text-transform: none;
   font-weight: 500;

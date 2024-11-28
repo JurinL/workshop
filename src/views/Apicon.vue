@@ -445,7 +445,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .green-theme {
   background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e9 100%);
   min-height: 100vh;
