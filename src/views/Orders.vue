@@ -15,10 +15,10 @@
           class="green--text text--darken-2"
           elevation="2"
           rounded
-          @click="goToApiConsole"
+          @click="fetchOrders"
         >
-          <v-icon left>mdi-console</v-icon>
-          API Console
+          <v-icon left>mdi-refresh</v-icon>
+          Refresh Orders
         </v-btn>
       </v-col>
     </v-row>
@@ -141,9 +141,6 @@
       }
     },
     methods: {
-      goToApiConsole() {
-        window.location.href = 'http://localhost:8080/apicon'
-      },
       async fetchOrders() {
         this.loading = true
         try {
