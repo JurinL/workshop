@@ -31,11 +31,6 @@ const routes = [
           import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
       },
       {
-        path: "/apicon",
-        name: "apicon",
-        component: () => import("../views/Apicon.vue"),
-      },
-      {
         path: "/orders",
         name: "orders",
         component: () => import("../views/Orders.vue"),
@@ -61,7 +56,12 @@ const routes = [
     path: "/workshop3",
     name: "workshop3",
     component: () => import("../views/Workshop3.vue"),
-  }
+  },
+  {
+    path: "/apicon",
+    name: "apicon",
+    component: () => import("../views/Apicon.vue"),
+  },
 ];
 
 const router = new VueRouter({
