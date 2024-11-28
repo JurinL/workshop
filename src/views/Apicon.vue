@@ -8,6 +8,18 @@
             <v-card-title class="text-h4 white--text py-4 px-6">
               Online Shop
               <v-spacer></v-spacer>
+              
+              <!-- Add this new orders button -->
+              <v-btn 
+                fab 
+                small 
+                color="white" 
+                class="mr-4"
+                @click="$router.push('/orders')"
+              >
+                <v-icon color="green darken-1">mdi-clipboard-text</v-icon>
+              </v-btn>
+              
               <v-badge
                 :content="cartItems.length"
                 :value="cartItems.length"
