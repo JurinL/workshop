@@ -1,11 +1,6 @@
 <template>
   <div>
-    <v-app-bar
-      app
-      color="green darken-1"
-      dark
-      elevation="4"
-    >
+    <v-app-bar app color="green darken-1" dark elevation="4">
       <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
@@ -19,59 +14,44 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn
-        text
-        to="/"
-        class="mx-2"
-      >
+      <v-btn text to="/" class="mx-2">
         <v-icon left>mdi-home</v-icon>
         Home
       </v-btn>
 
-      <v-btn
-        text
-        to="/apicon"
-        class="mx-2"
-      >
+      <v-btn text to="/apicon" class="mx-2">
         <v-icon left>mdi-shopping</v-icon>
         Online Shopping
       </v-btn>
 
-      <v-btn
-        text
-        to="/orders"
-        class="mx-2"
-      >
+      <v-btn text to="/orders" class="mx-2">
         <v-icon left>mdi-clipboard-list</v-icon>
         Orders
       </v-btn>
 
-      <v-btn
-        text
-        to="/workshop1"
-        class="mx-2"
-      >
+      <v-btn text to="/workshop1" class="mx-2">
         <v-icon left>mdi-tools</v-icon>
         Workshop 1
       </v-btn>
 
-      <v-btn
-        text
-        to="/workshop2"
-        class="mx-2"
-      >
+      <v-btn text to="/workshop2" class="mx-2">
         <v-icon left>mdi-tools</v-icon>
         Workshop 2
       </v-btn>
 
+      <v-btn text to="/products" class="mx-2">
+        <v-icon left>mdi-package-variant</v-icon>
+        Products
+      </v-btn>
+
       <v-btn text class="ml-4">
         <v-icon left>mdi-account</v-icon>
-        <span>{{User}} {{ User2 }}</span>
+        <span>{{ User }} {{ User2 }}</span>
       </v-btn>
     </v-app-bar>
 
     <v-main>
-      <router-view/>
+      <router-view />
     </v-main>
   </div>
 </template>
@@ -80,15 +60,15 @@
 export default {
   data() {
     return {
-      User: '',
-      User2: '',
-    }
+      User: "",
+      User2: "",
+    };
   },
   created() {
-    this.User = localStorage.getItem('User')
-    this.User2 = this.$cookies.get("User")
+    this.User = localStorage.getItem("User");
+    this.User2 = this.$cookies.get("User");
   },
-}
+};
 </script>
 
 <style scoped>
