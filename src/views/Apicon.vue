@@ -119,35 +119,73 @@
       </v-dialog>
 
       <!-- Shopping Cart Dialog -->
-      <v-dialog v-model="cartDialog" max-width="500px">
-        <v-card>
-          <v-card-title>Shopping Cart</v-card-title>
-          <v-card-text>
-            <v-list>
-              <v-list-item v-for="item in cartItems" :key="item.id">
-                <v-list-item-content>
-                  <v-list-item-title>
-                    {{ item.productName }} (x{{ item.cartQuantity }})
-                  </v-list-item-title>
-                  <v-list-item-subtitle>{{ item.price }}฿</v-list-item-subtitle>
-                </v-list-item-content>
-                <v-list-item-action>
-                  <v-btn icon @click="removeFromCart(item)">
-                    <v-icon>mdi-delete</v-icon>
-                  </v-btn>
-                </v-list-item-action>
-              </v-list-item>
-            </v-list>
-            <v-divider></v-divider>
-            <div class="text-h6 pt-4">Total: {{ cartTotal }}฿</div>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" @click="checkout()"> Checkout </v-btn>
-            <v-btn color="grey" text @click="cartDialog = false"> Close </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+<v-dialog v-model="cartDialog" max-width="600px">
+  <v-card class="cart-dialog">
+    <v-card-title class="green darken-1 white--text">
+      <v-icon left color="white">mdi-cart</v-icon>
+      Shopping Cart
+      <v-spacer></v-spacer>
+      <div class="subtitle-1">{{ cartItems.length }} items</div>
+    </v-card-title>
+    
+    <v-card-text class="pa-4">
+      <v-list>
+        <v-list-item v-for="item in cartItems" :key="item.id" class="mb-2">
+          <v-list-item-avatar size="60">
+            <v-img src="../assets/profile.jpg" />
+          </v-list-item-avatar>
+          
+          <v-list-item-content>
+            <v-list-item-title class="text-h6">
+              {{ item.productName }}
+            </v-list-item-title>
+            <v-list-item-subtitle class="green--text text--darken-2">
+              {{ item.price }}฿ x {{ item.cartQuantity }}
+            </v-list-item-subtitle>
+          </v-list-item-content>
+          
+          <v-list-item-action class="d-flex align-center">
+            <div class="text-h6 green--text text--darken-2 mr-4">
+              {{ (item.price * item.cartQuantity).toFixed(2) }}฿
+            </div>
+            <v-btn icon color="red lighten-1" @click="removeFromCart(item)">
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
+          </v-list-item-action>
+        </v-list-item>
+      </v-list>
+      
+      <v-divider class="my-4"></v-divider>
+      
+      <v-row align="center" class="px-3">
+        <v-col cols="6">
+          <div class="text-h5">Total Amount:</div>
+        </v-col>
+        <v-col cols="6" class="text-right">
+          <div class="text-h4 green--text text--darken-2">{{ cartTotal }}฿</div>
+        </v-col>
+      </v-row>
+    </v-card-text>
+
+    <v-card-actions class="pa-4 green lighten-5">
+      <v-btn text color="grey darken-1" @click="cartDialog = false">
+        <v-icon left>mdi-arrow-left</v-icon>
+        Continue Shopping
+      </v-btn>
+      <v-spacer></v-spacer>
+      <v-btn 
+        color="green darken-1" 
+        dark 
+        :disabled="!cartItems.length"
+        @click="checkout()"
+      >
+        Proceed to Checkout
+        <v-icon right>mdi-check</v-icon>
+      </v-btn>
+    </v-card-actions>
+  </v-card>
+</v-dialog>
+
   </div>
 </template>
 
@@ -183,7 +221,7 @@ export default {
     },
     cartTotal() {
       return this.cartItems
-        .reduce((total, item) => total + item.price * item.quantity, 0)
+        .reduce((total, item) => total + item.price * item.cartQuantity, 0)
         .toFixed(2);
     },
   },
@@ -386,6 +424,31 @@ export default {
 
 .v-card-title {
   border-bottom: 2px solid #81c784;
+}
+
+.cart-dialog {
+  border-radius: 8px;
+}
+
+.cart-dialog .v-list-item {
+  border-radius: 8px;
+  margin-bottom: 8px;
+  background-color: #f5f5f5;
+  transition: all 0.2s ease;
+}
+
+.cart-dialog .v-list-item:hover {
+  background-color: #e8f5e9;
+  transform: translateX(4px);
+}
+
+.cart-dialog .v-card-title {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.cart-dialog .v-list-item-avatar {
+  border: 2px solid #81c784;
 }
 </style>
 
