@@ -73,6 +73,11 @@
                 View Details
               </v-btn>
             </template>
+            <template #[`item.delete`]="{ item }">
+              <v-btn icon color="red" @click="deleteOrder(item)">
+                <v-icon middle>mdi-delete</v-icon>
+              </v-btn>
+            </template>
           </v-data-table>
         </v-card>
       </v-col>
@@ -136,7 +141,8 @@
           { text: 'Order Date', value: 'orderDate' },
           { text: 'Total Amount', value: 'totalAmount' },
           { text: 'Status', value: 'status' },
-          { text: 'Actions', value: 'actions', sortable: false }
+          { text: 'Actions', value: 'actions', sortable: false },
+          { text: 'Delete', value: 'delete', sortable: false }
         ]
       }
     },
@@ -173,7 +179,17 @@
         } catch (error) {
           console.error('Error fetching order details:', error)
         }
+      },
+      async deleteOrder(item) {
+      if (confirm(`Are you sure you want to delete order ${item._id}?`)) {
+        try {
+          await this.axios.delete(`http://localhost:3000/orders/${item._id}`);
+          await this.fetchOrders();
+        } catch (error) {
+          console.error("Error deleting order:", error);
+        }
       }
+    },
     },
     created() {
       this.fetchOrders()

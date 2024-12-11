@@ -53,9 +53,9 @@
 
     <v-dialog v-model="dialog" width="600">
       <v-card>
-        <v-card-title class="green darken-1 white--text">{{
-          formTitle
-        }}</v-card-title>
+        <v-card-title class="green darken-1 white--text">
+          {{formTitle}}
+        </v-card-title>
         <v-card-text class="pt-4">
           <v-container>
             <v-row>
@@ -199,32 +199,11 @@ export default {
       }
     },
 
-    async uploadImage(file) {
-      const formData = new FormData();
-      formData.append("image", file);
-
-      try {
-        const response = await this.axios.post(
-          "http://localhost:3000/upload",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-        return response.data.imageUrl;
-      } catch (error) {
-        console.error("Error uploading image:", error);
-        throw error;
-      }
-    },
-
     async save() {
       try {
-        if (this.productImage) {
-          const imageUrl = await this.uploadImage(this.productImage);
-          this.editedItem.imageUrl = imageUrl;
+        if (!this.editedItem.productName || !this.editedItem.price) {
+          alert("Please fill in all required fields.");
+          return;
         }
 
         if (this.editedIndex > -1) {
