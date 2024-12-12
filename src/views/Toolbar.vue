@@ -44,9 +44,9 @@
         Products
       </v-btn>
 
-      <v-btn text class="ml-4">
+      <v-btn text to="/users" class="ml-4">
         <v-icon left>mdi-account</v-icon>
-        <span>{{ User }} {{ User2 }}</span>
+        <span>Users</span>
       </v-btn>
     </v-app-bar>
 
