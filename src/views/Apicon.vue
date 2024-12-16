@@ -36,13 +36,6 @@
         </v-col>
       </v-row>
 
-      <!-- Update new item button -->
-      <!-- <v-btn color="green darken-2" dark class="mb-4" @click="newItem()">
-        <v-icon left>mdi-plus</v-icon>
-        Add New Item
-      </v-btn> -->
-
-      <!-- Update product cards -->
       <v-row>
         <v-col cols="4" v-for="(item, index) in apidata" :key="index">
           <v-card width="400" class="product-card" elevation="2">
@@ -52,9 +45,8 @@
               class="white--text align-end"
               gradient="to bottom, rgba(0,0,0,0) 60%, rgba(0,0,0,0.7)"
             >
-              <v-card-title class="text-h5">{{
-                item.productName
-              }}</v-card-title>
+              <v-card-title class="text-h5">
+                {{ item.productName }}</v-card-title>
             </v-img>
             <v-card-text class="pt-4">
               <div class="text-h5 green--text text--darken-2 mb-2">
